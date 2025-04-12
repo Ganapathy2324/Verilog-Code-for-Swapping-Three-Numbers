@@ -31,7 +31,7 @@ Save and Document Results:
 Capture the waveform output and include the results in your report for verification.
 
 ## Verilog Code:
-### By Blocking
+### By Blocking 
 ```
 `timescale 1ns/1ps
 module swap(a,b,c,clk,aout,bout,cout);
@@ -61,6 +61,36 @@ always @(posedge clk) begin
   cout <= a;
 end
 
+endmodule
+```
+### By Blocking (Using same variable)
+```
+`timescale 1ns/1ps
+module blockingusingsamevar;
+reg [3:0] a, b, c;
+initial begin
+  a=4'd8;
+  b=4'd7;
+  c=4'd6;
+  a=b; 
+  b=c; 
+  c=a; 
+end
+endmodule
+```
+### By Non-Blocking (Using same variable)
+```
+`timescale 1ns/1ps
+module nonblockingusingsamevar;
+reg [3:0] a, b, c;
+initial begin
+  a=4'd8;
+  b=4'd7;
+  c=4'd6;
+  a<=b; 
+  b<=c; 
+  c<=a; 
+end
 endmodule
 ```
 Testbench for Swapping Three Numbers:
@@ -116,6 +146,9 @@ endmodule
 ![Screenshot 2025-04-08 131308](https://github.com/user-attachments/assets/945af200-c96d-4c4f-ab16-b88df47fd565)
 ### By Non-Blocking
 ![Screenshot 2025-04-12 132336](https://github.com/user-attachments/assets/b1b052df-36aa-47d3-8ffa-31f3f21e5e98)
-
+### By Blocking(Using same variable)
+![Screenshot 2025-04-12 141036](https://github.com/user-attachments/assets/04245bda-f180-4558-9ed9-bd03586e5857)
+### By Non Blocking(Using same variable)
+![Screenshot 2025-04-12 141700](https://github.com/user-attachments/assets/18199f98-d29e-498b-a129-017dee50d370)
 ## Conclusion
 In this experiment, a Verilog HDL code for swapping three numbers was designed and successfully simulated. The testbench verified the swapping operation, showing that the values of three input numbers (a, b, and c) were swapped correctly without the use of temporary variables. This experiment demonstrated the effectiveness of Verilog in implementing logical operations and control mechanisms such as swapping values. The simulation results confirm the correct functionality of the design.
