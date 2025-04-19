@@ -67,30 +67,40 @@ endmodule
 ```
 `timescale 1ns/1ps
 module blockingusingsamevar;
-reg [3:0] a, b, c;
-initial begin
-  a=4'd8;
-  b=4'd7;
-  c=4'd6;
-  a=b; 
-  b=c; 
-  c=a; 
-end
+  reg clk;
+  reg [3:0] a, b, c;
+  initial clk = 0;
+  always #5 clk = ~clk;
+  initial begin
+    a = 4'd8;
+    b = 4'd7;
+    c = 4'd6;
+  end
+  always @(posedge clk) begin
+    a = b;
+    b = c;
+    c = a;
+  end
 endmodule
 ```
 ### By Non-Blocking (Using same variable)
 ```
 `timescale 1ns/1ps
 module nonblockingusingsamevar;
-reg [3:0] a, b, c;
-initial begin
-  a=4'd8;
-  b=4'd7;
-  c=4'd6;
-  a<=b; 
-  b<=c; 
-  c<=a; 
-end
+  reg clk;
+  reg [3:0] a, b, c;
+  initial clk = 0;
+  always #5 clk = ~clk;
+  initial begin
+    a = 4'd8;
+    b = 4'd7;
+    c = 4'd6;
+  end
+  always @(posedge clk) begin
+    a <= b;
+    b <= c;
+    c <= a;
+  end
 endmodule
 ```
 Testbench for Swapping Three Numbers:
